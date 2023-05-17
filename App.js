@@ -1,91 +1,40 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { FlatList, StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text,  View, ImageBackground } from 'react-native';
+import Liste from './components/liste';
 
 export default function App() {
-  const [sampleGoals, setGoal] = useState([
-    {id: 1, key: "Faire les courses"},
-    {id: 2, key: "Aller à la salle 3 fois par semaine"},
-    {id: 3, key: "Monter à plus de 5000m d'altitude"},
-    {id: 4, key: "Acheter mon premier appartement"},
-    {id: 5, key: "Perdre 5kg"},
-    {id: 6, key: "Gagner en productivite"},
-    {id: 7, key: "Apprendre un nouveau langage"},
-    {id: 8, key: "Faire une mission en freelance"},
-    {id: 9, key: "Organiser un meetup autour de la tech"},
-    {id: 10, key: "Faire un triathlon"},
-  ]);
-
-  const [newGoal, setNewGoal] = useState('');
-
-  const addGoal = () =>{
-    newGoal && setGoal([...sampleGoals, { key: newGoal }]);
-  };
-
-  deleteGoal = (key) =>{
-    setGoal(sampleGoals => sampleGoals.filter((item) => item.key !== key));
-  }
-
+  
+  const image = {uri: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjE1JV3qP02IhV1LOTZgiJVTuzsEKmIdVn6D1y2uD2OJ9V-qeUiQPGL6IRe5RmxlC2QOd-esgWxRRTSlU4i2Ovtbynhq-uwSovEhDgwhvlk5dzux9vgCzIj4GbPWk1Ef2ippEXB0IKJy56ogMQe7xRlnLuAJBmiqpEW2DO5WRqo4m0KJWWwjKdDLjcRXg/w296-h640/12052022-CLEAN-BLUE-WAVES.png'}
+  
   return (
     <View style={styles.container}>
-      <Text style={styles.red}>Open up <Text style={styles.bold}>App.js</Text> to start working on your app!</Text>
-      <View style={styles.row}>
-        <TextInput 
-          placeholder="Nouvel objectif ?"
-          onChangeText={(newGoal) => setNewGoal(newGoal)}
-          value={newGoal}
-        ></TextInput>
-        <Button title="Ajouter" onPress={addGoal}/>
-      </View>
-      <FlatList
-        data={sampleGoals}
-        renderItem={({ item }) => (
-          <View style={styles.list}>
-            <Text>{item.key}</Text>
-            <TouchableOpacity style={styles.btnDelete} onPress={() => this.deleteGoal(item.key)} >
-              <Text style={{color: 'white'}}>X</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      />
-      <StatusBar style="auto"/>
+      <ImageBackground source={image} style={styles.image}>
+        <StatusBar style="auto"/>
+        <Text style={styles.red}>
+          Open up <Text style={styles.bold}>App.js</Text> to start working on your app!
+        </Text>
+        <Liste />
+      </ImageBackground>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 70,
-    flex: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1,
     backgroundColor: '#FFDAB9',
+  },
+  image: {
+    flex: 1,
+    alignItems: 'center',
   },
   red: {
     color: 'red',
     marginBottom: 20,
+    marginTop: 60,
+    
   },
   bold: {
     fontWeight: 'bold',
-  },
-  list: {
-    marginBottom: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 10,
-  },
-  btnDelete: {
-    backgroundColor: 'red',
-    marginLeft: 25,
-    padding: 5,
-    borderRadius : 5,
-  },
-  row: {
-    marginBottom: 10,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
   },
 });
